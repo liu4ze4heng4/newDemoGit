@@ -1,0 +1,262 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>修改主播套餐</title>
+    <meta name="keywords" content="XDJ"/>
+    <meta name="description" content="XDJ"/>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0;">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            position: relative;
+            background: #f6f6f6;
+            color: #666;
+            font-family: "新宋体", Arial;
+            font-size: 12px;
+            line-height: 22px;
+        }
+
+        div {
+            overflow: hidden;
+        }
+
+        ul, li {
+            list-style-type: none;
+        }
+
+        input {
+            width: 80px;
+            height: 20px;
+        }
+
+        img {
+            border: 0;
+        }
+
+        a:link {
+            color: #666666;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #666666;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #FF6600;
+            text-decoration: none;
+        }
+
+        a:active {
+            color: #FF9900;
+            text-decoration: none;
+        }
+
+        .navTop {
+            height: 45px;
+            width: 100%;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .navTop .logo {
+            height: 40px;
+            width: 320px;
+        }
+
+        .main {
+            background: #fff;
+            border: #D0D0D0 1px solid;
+            padding: 20px 0;
+            /*float: left;*/
+            /*height: 400px;*/
+            margin-top: 2px;
+            width: 100%;
+            position: relative;
+        }
+
+        .main .button_01 {
+            background: #75c0ec;
+            border: #f6f6f6 1px solid;
+            cursor: pointer;
+            height: 40px;
+            margin-left: 40px;
+            margin-top: 20px;
+            width: 122px;
+            color: #fff;
+            font-family: "微软雅黑", "新宋体", Arial;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .main .result_01 {
+            padding-left: 10px;
+            /*position: absolute;*/
+            /*left: 10px;*/
+            /*top: 10px;*/
+        }
+
+        .main .typeselect {
+            padding-left: 10px;
+
+            /*position: absolute;*/
+            /*left: 40px;*/
+            /*top: 120px;*/
+            font-size: 12px;
+            line-height: 32px;
+        }
+
+        .main .textarea_01 {
+            height: 300px;
+            width: 100%;
+            padding-top: 4px;
+            padding-left: 4px;
+            color: #666;
+            border: #D0D0D0 1px solid;
+        }
+
+        .copy {
+            height: 26px;
+            line-height: 26px;
+            text-align: right;
+        }
+
+        .copy span {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            padding: 0 3px;
+        }
+
+        @media all and (min-width: 0px) and (max-width: 480px) {
+            .auto {
+                box-sizing: border-box;
+                margin: 0 auto;
+                width: 100%;
+                padding: 5px;
+            }
+        }
+
+        @media all and (min-width: 481px) {
+            .auto {
+                box-sizing: border-box;
+                margin: 0 auto;
+                width: 800px;
+            }
+        }
+
+        /*.widthFloat {*/
+        /*float: left;*/
+        /*width: 100%;*/
+        /*}*/
+    </style>
+    <script src="./script/jquery-1.11.3.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bt_wxpay").click(function () {
+                        var createorder;
+                        api.ajax({
+                            url: 'http://m.1hsz.cn/api/order/wxpay',
+                            method: 'get',
+                            data: {values: {orderId: $("#s_orderId").val(), tradeType: 'APP'}}
+                        }, function (ret, err) {
+                            api.alert({msg: JSON.stringify(ret)});
+                            createorder = ret;
+                        });
+
+                        var wxPay = api.require('wxPay');
+                        wxPay.payOrder({
+                            apiKey: createorder.appId,
+                            orderId: createorder.prepayID,
+                            mchId: createorder.mchId,
+                            nonceStr: createorder.nonce_str,
+                            timeStamp: createorder.timeStamp,
+                            sign: createorder.paySign
+                        }, function (ret, err) {
+                            if (ret.status) {    //支付成功
+                                alert("支付成功");
+                            } else {
+                                alert(err.code);
+                            }
+                        });
+                    }
+            )
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bt_alipay").click(function () {
+                        var createorder;
+                        api.ajax({
+                            url: 'http://tiger.1hsz.cn/api/order/alipay',
+                            method: 'get',
+                            data: {values: {orderId: $("#ali_orderId").val(), tradeType: 'APP'}}
+                        }, function (ret, err) {
+
+                            createorder = ret.payStr;
+
+                            api.alert({
+                                title: 'testtitle',
+                                msg: createorder
+                            }, function(ret, err) {
+
+                            });
+
+                            var aliPay = api.require('aliPay');
+                            aliPay.payOrder({
+                                orderInfo: createorder
+                            }, function (ret, err) {
+                                $("#resText7").html(JSON.stringify(ret));
+                                $("#resText8").html(JSON.stringify(err));
+                            });
+                        });
+                    }
+            )
+        })
+    </script>
+
+
+</head>
+
+<body>
+<div class="auto">
+    <div class="navTop widthFloat">
+        <div class="logo"><a href="" target="_blank" title="趣活"><img
+                src="./img/quhoo.png" alt="" height="40" width="320"/></a></div>
+    </div>
+
+    <div class="main">
+        <input type="number" id="ali_orderId" value="1660"/> <br> <input type="button" value="支付宝支付" id="bt_alipay"/>
+    </div>
+
+    <div class="main">
+        <input type="number" id="s_orderId" value="600"/> <br> <input type="button" value="微信支付" id="bt_wxpay"/>
+    </div>
+
+    <div id="resText9">
+    </div>
+
+    <br> <br> <br> =========<br>
+
+    <div id="resText8">
+    </div>
+    <br> <br> <br>========= <br>
+
+    <div id="resText7">
+    </div>
+
+
+</div>
+
+</body>
+</html>
