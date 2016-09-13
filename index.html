@@ -1,0 +1,601 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>修改主播套餐</title>
+    <meta name="keywords" content="XDJ"/>
+    <meta name="description" content="XDJ"/>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0;">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            position: relative;
+            background: #f6f6f6;
+            color: #666;
+            font-family: "新宋体", Arial;
+            font-size: 12px;
+            line-height: 22px;
+        }
+
+        div {
+            overflow: hidden;
+        }
+
+        ul, li {
+            list-style-type: none;
+        }
+
+        input {
+            width: 80px;
+            height: 20px;
+        }
+
+        img {
+            border: 0;
+        }
+
+        a:link {
+            color: #666666;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #666666;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #FF6600;
+            text-decoration: none;
+        }
+
+        a:active {
+            color: #FF9900;
+            text-decoration: none;
+        }
+
+        .navTop {
+            height: 45px;
+            width: 100%;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .navTop .logo {
+            height: 40px;
+            width: 320px;
+        }
+
+        .main {
+            background: #fff;
+            border: #D0D0D0 1px solid;
+            padding: 20px 0;
+            /*float: left;*/
+            /*height: 400px;*/
+            margin-top: 2px;
+            width: 100%;
+            position: relative;
+        }
+
+        .main .button_01 {
+            background: #75c0ec;
+            border: #f6f6f6 1px solid;
+            cursor: pointer;
+            height: 40px;
+            margin-left: 40px;
+            margin-top: 20px;
+            width: 122px;
+            color: #fff;
+            font-family: "微软雅黑", "新宋体", Arial;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .main .result_01 {
+            padding-left: 10px;
+            /*position: absolute;*/
+            /*left: 10px;*/
+            /*top: 10px;*/
+        }
+
+        .main .typeselect {
+            padding-left: 10px;
+
+            /*position: absolute;*/
+            /*left: 40px;*/
+            /*top: 120px;*/
+            font-size: 12px;
+            line-height: 32px;
+        }
+
+        .main .textarea_01 {
+            height: 300px;
+            width: 100%;
+            padding-top: 4px;
+            padding-left: 4px;
+            color: #666;
+            border: #D0D0D0 1px solid;
+        }
+
+        .copy {
+            height: 26px;
+            line-height: 26px;
+            text-align: right;
+        }
+
+        .copy span {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            padding: 0 3px;
+        }
+
+        @media all and (min-width: 0px) and (max-width: 480px) {
+            .auto {
+                box-sizing: border-box;
+                margin: 0 auto;
+                width: 100%;
+                padding: 5px;
+            }
+        }
+
+        @media all and (min-width: 481px) {
+            .auto {
+                box-sizing: border-box;
+                margin: 0 auto;
+                width: 800px;
+            }
+        }
+
+        /*.widthFloat {*/
+        /*float: left;*/
+        /*width: 100%;*/
+        /*}*/
+    </style>
+    <script src="./script/jquery-1.11.3.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bt_zhuboInfo").click(function () {
+                api.ajax({
+                    url: 'http://42.96.200.59/xdj/getIDInfo',
+                    method: 'get',
+                    dataType: 'text',
+                    data: {
+                        values: {
+                            clientNum: $("#s_clientNum").val()
+                        }
+                    }
+                }, function (ret, err) {
+                    $("#resText").html(ret);
+                });
+                $("#resText").html("正在查询，请稍等。。。。");
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#shezhitaocang_bt").click(function () {
+                api.ajax({
+                    url: 'http://42.96.200.59/xdj/makeOrder',
+                    method: 'get',
+                    dataType: 'text',
+                    data: {
+                        values: {
+                            clientNum: $("#s_clientNum").val(),
+                            count: $("#s_count").val(),
+                            etime: $("#s_etime").val()
+                        }
+                    }
+                }, function (ret, err) {
+                    $("#resText1").html(ret);
+                });
+                $("#resText1").html("正在查询，请稍等。。。。");
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bt_hotboy").click(function () {
+                api.ajax({
+                    url: 'http://42.96.200.59/xdj/hotboy',
+                    method: 'get',
+                    dataType: 'text',
+                    data: {
+                        values: {
+                            clientNum: $("#s_clientNum").val()
+                        }
+                    }
+                }, function (ret, err) {
+                    $("#resText2").html(ret);
+                });
+                $("#resText2").html("正在查询，请稍等。。。。");
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bt_hotgirl").click(function () {
+                api.ajax({
+                    url: 'http://42.96.200.59/xdj/hotgirl',
+                    method: 'get',
+                    dataType: 'text',
+                    data: {
+                        values: {
+                            clientNum: $("#s_clientNum").val()
+                        }
+                    }
+                }, function (ret, err) {
+                    $("#resText2").html(ret);
+                });
+                $("#resText2").html("正在查询，请稍等。。。。");
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bt_addbomb").click(function () {
+                api.ajax({
+                    url: 'http://42.96.200.59/xdj/addBomb',
+                    method: 'get',
+                    dataType: 'text',
+                    data: {
+                        values: {
+                            clientNum: $("#s_clientNum").val(),
+                            bombNum: $("#s_bombn").val()
+                        }
+                    }
+                }, function (ret, err) {
+                    $("#resText3").html(ret);
+                });
+                $("#resText3").html("正在查询，请稍等。。。。");
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bt_addsetRobot").click(function () {
+                api.ajax({
+                    url: 'http://42.96.200.59/xdj/addRobot',
+                    method: 'get',
+                    dataType: 'text',
+                    data: {
+                        values: {
+                            clientNum: $("#s_clientNum").val(),
+                            type: $("#s_talktype").val(),
+                            rebotNum: $("#s_robotn").val(),
+                            sec: $("#s_robotsec").val(),
+                            robotgroup: $("#robotgroup").val()
+                        }
+                    }
+                }, function (ret, err) {
+                    $("#resText4").html(ret);
+                });
+                $("#resText4").html("正在操作，请稍等。。。。");
+            })
+        })
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bt_stopRobot").click(function () {
+                api.ajax({
+                    url: 'http://42.96.200.59/xdj/stopRobot',
+                    method: 'get',
+                    dataType: 'text',
+                    data: {
+                        values: {
+                            clientNum: $("#s_clientNum").val()
+                        }
+                    }
+                }, function (ret, err) {
+                    $("#resText4").html(ret);
+                });
+                $("#resText4").html("正在操作，请稍等。。。。");
+            })
+        })
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bt_curIdelRobot").click(function () {
+                api.ajax({
+                    url: 'http://42.96.200.59/xdj/getIdleNum',
+                    method: 'get',
+                    dataType: 'text',
+                    data: {
+                        values: {
+                            clientNum: $("#s_clientNum").val()
+                        }
+                    }
+                }, function (ret, err) {
+                    $("#resText5").html(ret);
+                });
+                $("#resText5").html("正在操作，请稍等。。。。");
+            })
+        })
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#renqibaoci_bt").click(function () {
+                $("#s_etime").val("0.25");
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#renqibaotian_bt").click(function () {
+                $("#s_etime").val("1");
+            })
+        })
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#copytaocang_bt").click(function () {
+                var clipBoard = api.require('clipBoard');
+                clipBoard.set({
+                    value: $("#resText1").html().replace(/<br>/g, "\n")
+                }, function (ret, err) {
+                    if (ret) {
+                        api.toast({
+                            msg: '复制成功',
+                            duration: 1000,
+                            location: 'bottom'
+                        });
+                    } else {
+                        alert(JSON.stringify(err));
+                    }
+
+                });
+
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#zhuboidpaste_bt").click(function () {
+                var clipBoard = api.require('clipBoard');
+                clipBoard.get(function (ret, err) {
+                    $("#s_clientNum").val(ret.value);
+                });
+
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#robotdingzhipaste_bt").click(function () {
+                var clipBoard = api.require('clipBoard');
+                clipBoard.get(function (ret, err) {
+                    $("#robotgroup").val(ret.value);
+                });
+
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#neirongdingzhipaste_bt").click(function () {
+                var clipBoard = api.require('clipBoard');
+                clipBoard.get(function (ret, err) {
+                    $("#s_talktype").val(ret.value);
+                });
+
+            })
+        })
+    </script>
+
+
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bt_clearhot").click(function () {
+                $("#resText2").html("");
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#renqi3000_bt").click(function () {
+                $("#s_count").val("3000");
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#renqi1000_bt").click(function () {
+                $("#s_count").val("1000");
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#renqi500_bt").click(function () {
+                $("#s_count").val("500");
+            })
+        })
+    </script>
+
+
+    <!--<script type="text/javascript">-->
+    <!--$(document).ready(function () {-->
+    <!--$("#bt_wxpay").click(function () {-->
+    <!--var createorder;-->
+    <!--api.ajax({-->
+    <!--url: 'http://m.1hsz.cn/api/order/wxpay',-->
+    <!--method: 'get',-->
+    <!--data: {-->
+    <!--values: {-->
+    <!--orderId: $("#s_orderId").val(),-->
+    <!--tradeType:'APP'-->
+    <!--}-->
+    <!--}-->
+    <!--}, function (ret, err) {-->
+    <!--api.alert({ msg: JSON.stringify(ret) });-->
+    <!--createorder=ret;-->
+    <!--});-->
+
+
+    <!--var wxPay = api.require('wxPay');-->
+    <!--wxPay.payOrder({-->
+    <!--apiKey: createorder.appId,-->
+    <!--orderId:  createorder.prepayID,-->
+    <!--mchId: createorder.mchId,-->
+    <!--nonceStr:  createorder.nonce_str,-->
+    <!--timeStamp:  createorder.timeStamp,-->
+    <!--sign: createorder.paySign-->
+    <!--}, function(ret, err){-->
+    <!--if(ret.status){-->
+    <!--//支付成功-->
+    <!--alert("支付成功");-->
+    <!--}else{-->
+    <!--alert(err.code);-->
+    <!--}-->
+    <!--});-->
+
+
+    <!--})-->
+    <!--})-->
+    <!--</script>-->
+
+
+</head>
+
+<body>
+<div class="auto">
+    <div class="navTop widthFloat">
+        <div class="logo"><a href="" target="_blank" title="趣活"><img
+                src="./img/quhoo.png" alt="" height="40" width="320"/></a></div>
+    </div>
+
+    <!--<div class="main">-->
+    <!--<input type="number" id="s_orderId" value="600"/> <br>-->
+    <!--<input type="button" value="微信支付" id="bt_wxpay"/>-->
+
+    <!--<div id="resText9">-->
+    <!--</div>-->
+
+    <!--</div>-->
+
+    <div class="main">
+
+        <input type="number" id="s_clientNum" value=""/>主播ID <input type="button" value="查看主播"
+                                                                    id="bt_zhuboInfo"/>@@@<input type="button"
+                                                                                                 id="zhuboidpaste_bt"
+                                                                                                 value="粘贴 ID"/>
+
+
+        <div id="resText">
+        </div>
+
+        ==================== <br> <br>
+
+        <input type="number" id="s_etime" value="1"/> <input type="button" id="renqibaoci_bt" value="包  次"/>@@<input
+            type="button" id="renqibaotian_bt" value="包  天"/> <br> <br>
+        <input type="number" id="s_count" value="1000"/><input type="button" id="renqi500_bt" value="500人"/>@<input
+            type="button" id="renqi1000_bt" value="1000人"/> @<input
+            type="button" id="renqi3000_bt" value="3000人"/> <br> <br>
+        <input type="button" id="shezhitaocang_bt" value="设置套餐"/>@@@<input type="button" id="copytaocang_bt"
+                                                                           value="复制套餐"/> <br>
+
+        <div id="resText1">
+        </div>
+
+
+    </div>
+
+    <br>
+
+    <div class="main">
+        <input type="number" id="s_bombn" value="600"/> 一次最多加3000 <br>
+        <input type="button" value="添加粉丝" id="bt_addbomb"/>
+
+        <div id="resText3">
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="main">
+        机器人数量：<input type="number" id="s_robotn" value="5"/> <br>
+        机器人定制：<input type="number" id="robotgroup" value="0"/> @@@<input type="button"
+                                                                         id="robotdingzhipaste_bt"
+                                                                         value="粘贴主播ID"/><br>
+        说话间隔：<input type="number" id="s_robotsec" value="40"/> <br>
+        内容定制：<input type="number" id="s_talktype" value="0"/>
+        <br>男通用版编号:0 /女通用版编号：1 / 推销购物版编号：3 @<input type="button"
+                                                     id="neirongdingzhipaste_bt"
+                                                     value="粘贴主播ID"/> <br>
+        <input type="button" value="启动互动" id="bt_addsetRobot"/>@@
+        <input type="button" value="停止互动" id="bt_stopRobot"/>
+
+        <div id="resText4">
+        </div>
+
+    </div>
+
+    <br>
+
+
+    <div class="main">
+
+        <input type="button" value="查看男榜" id="bt_hotboy"/> @@@ <input type="button" value="查看女榜" id="bt_hotgirl"/> @@@
+        <input type="button" value="清空内容" id="bt_clearhot"/>
+
+        <div id="resText2">
+        </div>
+
+    </div>
+
+    ===========说明==========
+    <div class="main">
+        目前支持人气：
+        100, 200, 300, 400, 500, 600, 700, 800, 900,(一般不送)<br>
+        1000, 1200, 1400, 1600, 1800, 2000, 2200, 2600, 3000, 3200, 4000, 4200, 5000, 5200, 6000, 6200, 7000, 7200,
+        8000, 8200, 9000, 9200,(一般送200)<br>
+        10000, 15000, 20000, 25000, 30000, 35000, 40000, 50000, 60000, 70000, 80000, 90000, 100000
+        (买就默认就送1000~10000)<br>
+        <br>价格计算<br>
+        （100人气 包次1块， 包天2块。 800=100*8= 8元包次，16元包天，其他都一样。）
+    </div>
+
+    <div class="main">
+
+        <input type="button" value="剩空闲机器人" id="bt_curIdelRobot"/>
+
+        <div id="resText5">
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
